@@ -7,11 +7,6 @@ A gentle, private daily diary designed specifically with neurodivergent needs in
 
 > **🖥️ Desktop Browser Only** - Intentionally designed for focused, mindful use on larger screens rather than mobile devices.
 
-<img width="769" height="793" alt="Screenshot 2025-10-23 at 2 15 25 PM" src="https://github.com/user-attachments/assets/ce1ec2bc-adfe-49c6-8bcf-db9aa2142109" />
-<img width="770" height="794" alt="Screenshot 2025-10-23 at 2 15 46 PM" src="https://github.com/user-attachments/assets/a81fd577-cc51-4a7d-8384-e6e3ad9c31dd" />
-<img width="761" height="803" alt="Screenshot 2025-10-23 at 2 16 17 PM" src="https://github.com/user-attachments/assets/d283e784-bd7b-4579-95f7-cd1dac2aa6d0" />
-
-
 ## ✨ Why This Exists
 
 Most planning apps are designed for neurotypical productivity optimization. PumCutie is different - it's built around how neurodivergent brains actually work, with executive function support, sensory considerations, and absolutely no judgment about "productivity."
@@ -166,3 +161,11 @@ Some days you'll use every feature. Some days you'll just click "I did enough to
 ---
 
 *Built with love for the neurodivergent community and anyone who needs a gentler approach to daily planning.* 🧡
+
+
+## Demos
+
+<img width="769" height="793" alt="Screenshot 2025-10-23 at 2 15 25 PM" src="https://github.com/user-attachments/assets/ce1ec2bc-adfe-49c6-8bcf-db9aa2142109" />
+<img width="770" height="794" alt="Screenshot 2025-10-23 at 2 15 46 PM" src="https://github.com/user-attachments/assets/a81fd577-cc51-4a7d-8384-e6e3ad9c31dd" />
+<img width="761" height="803" alt="Screenshot 2025-10-23 at 2 16 17 PM" src="https://github.com/user-attachments/assets/d283e784-bd7b-4579-95f7-cd1dac2aa6d0" />
+
