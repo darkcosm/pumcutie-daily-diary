@@ -1,0 +1,3853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:;">
+    <meta name="description" content="Neurodivergent-friendly daily diary with local storage">
+    <title>PumCutie🎃 Daily Diary - ND Friendly</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Pastel Dreams (default) */
+            --bg-primary: #FFF0F5;
+            --bg-secondary: #FFE4E9;
+            --accent: #FFB3C6;
+            --text: #4A4A4A;
+            --card-bg: #FFFFFF;
+            --border: #FFD4E0;
+            --button: #FF8FAB;
+            --button-hover: #FF6B93;
+            --progress-bg: #FFE4E9;
+            --progress-fill: #FF8FAB;
+            --focus-shadow: rgba(255, 179, 198, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Cozy Earth Theme */
+        body.cozy {
+            --bg-primary: #f5f0e8;
+            --bg-secondary: #e8dcc8;
+            --accent: #d4a574;
+            --text: #5c4a3a;
+            --card-bg: #ffffff;
+            --border: #d9c9b0;
+            --button: #c49a6c;
+            --button-hover: #b08558;
+            --progress-bg: #e8dcc8;
+            --progress-fill: #c49a6c;
+            --focus-shadow: rgba(196, 154, 108, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(196, 154, 108, 0.3);
+        }
+
+        /* Minimal/Focus Theme */
+        body.minimal {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #e9ecef;
+            --accent: #6c757d;
+            --text: #212529;
+            --card-bg: #ffffff;
+            --border: #dee2e6;
+            --button: #6c757d;
+            --button-hover: #5a6268;
+            --progress-bg: #e9ecef;
+            --progress-fill: #6c757d;
+            --focus-shadow: rgba(108, 117, 125, 0.15);
+            --kawaii-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark theme */
+        body.dark {
+            --bg-primary: #2a2a3e;
+            --bg-secondary: #1a1a2e;
+            --accent: #9b59b6;
+            --text: #e0e0e0;
+            --card-bg: #3a3a5a;
+            --border: #6a5acd;
+            --button: #9b59b6;
+            --button-hover: #8e44ad;
+            --progress-bg: #4a4a6a;
+            --progress-fill: #9b59b6;
+            --focus-shadow: rgba(155, 89, 182, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+        }
+
+        /* Forest theme */
+        body.forest {
+            --bg-primary: #e8f5e9;
+            --bg-secondary: #c8e6c9;
+            --accent: #66bb6a;
+            --text: #2e7d32;
+            --card-bg: #ffffff;
+            --border: #a5d6a7;
+            --button: #66bb6a;
+            --button-hover: #4caf50;
+            --progress-bg: #c8e6c9;
+            --progress-fill: #66bb6a;
+            --focus-shadow: rgba(102, 187, 106, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+        }
+
+        /* Ocean theme */
+        body.ocean {
+            --bg-primary: #e3f2fd;
+            --bg-secondary: #bbdefb;
+            --accent: #42a5f5;
+            --text: #1565c0;
+            --card-bg: #ffffff;
+            --border: #90caf9;
+            --button: #42a5f5;
+            --button-hover: #2196f3;
+            --progress-bg: #bbdefb;
+            --progress-fill: #42a5f5;
+            --focus-shadow: rgba(66, 165, 245, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(66, 165, 245, 0.3);
+        }
+
+        /* Sunset theme */
+        body.sunset {
+            --bg-primary: #fff3e0;
+            --bg-secondary: #ffe0b2;
+            --accent: #ff9800;
+            --text: #e65100;
+            --card-bg: #ffffff;
+            --border: #ffcc80;
+            --button: #ff9800;
+            --button-hover: #f57c00;
+            --progress-bg: #ffe0b2;
+            --progress-fill: #ff9800;
+            --focus-shadow: rgba(255, 152, 0, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        /* Lavender theme */
+        body.lavender {
+            --bg-primary: #f3e5f5;
+            --bg-secondary: #e1bee7;
+            --accent: #ba68c8;
+            --text: #6a1b9a;
+            --card-bg: #ffffff;
+            --border: #ce93d8;
+            --button: #ba68c8;
+            --button-hover: #ab47bc;
+            --progress-bg: #e1bee7;
+            --progress-fill: #ba68c8;
+            --focus-shadow: rgba(186, 104, 200, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(186, 104, 200, 0.3);
+        }
+
+        /* Pumpkin theme */
+        body.pumpkin {
+            --bg-primary: #fff5e6;
+            --bg-secondary: #ffe4cc;
+            --accent: #ff6b35;
+            --text: #5c3d2e;
+            --card-bg: #ffffff;
+            --border: #ffb380;
+            --button: #ff6b35;
+            --button-hover: #ff5722;
+            --progress-bg: #ffe4cc;
+            --progress-fill: #ff6b35;
+            --focus-shadow: rgba(255, 107, 53, 0.15);
+            --kawaii-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--kawaii-shadow);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 3px solid var(--border);
+            position: relative;
+        }
+
+        .card::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 1.5em;
+            opacity: 0;
+            transition: all 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+            top: -15px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            color: var(--text);
+            text-shadow: 3px 3px 0px rgba(255, 182, 193, 0.4);
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            animation: floatTitle 3s ease-in-out infinite;
+        }
+
+        h1::before, h1::after {
+            content: '✨';
+            position: absolute;
+            font-size: 0.5em;
+            animation: sparkleRotate 4s ease-in-out infinite;
+        }
+
+        h1::before {
+            left: -30px;
+            top: 0;
+        }
+
+        h1::after {
+            right: -30px;
+            top: 0;
+            animation-delay: 2s;
+        }
+
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes sparkleRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+        }
+
+        h2 {
+            color: var(--text);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        button {
+            background: var(--button);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            margin-bottom: 10px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        button:hover {
+            background: var(--button-hover);
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        textarea, input[type="text"], input[type="time"], input[type="date"], input[type="number"], select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 3px solid var(--border);
+            border-radius: 18px;
+            font-size: 1em;
+            margin-bottom: 10px;
+            background: var(--card-bg);
+            color: var(--text);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: inherit;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        textarea:focus, input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 5px var(--focus-shadow), 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* IMPROVED: Body Check-In Styles - Better Dark Mode Visibility */
+        .body-scan-simple {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .body-zone {
+            position: relative;
+            padding: 22px 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            border: 3px solid var(--border);
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 100px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Dark mode specific improvements for body zones */
+        body.dark .body-zone {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
+            border: 3px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark .body-zone:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.2));
+            border-color: var(--button-hover);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        body.dark .body-zone.active {
+            background: linear-gradient(135deg, var(--accent), var(--button));
+            border-color: var(--button-hover);
+            box-shadow: 0 8px 25px var(--focus-shadow);
+        }
+
+        .body-zone::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--button));
+            opacity: 0;
+            transition: opacity 0.4s;
+            z-index: -1;
+        }
+
+        .body-zone:hover {
+            transform: translateY(-6px) scale(1.03);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .body-zone.active {
+            border-color: var(--accent);
+            background: var(--card-bg);
+            box-shadow: 0 8px 25px var(--focus-shadow);
+            transform: translateY(-3px) scale(1.02);
+            animation: kawaiiBounce 0.6s ease;
+        }
+
+        .body-zone.active::before {
+            opacity: 0.15;
+        }
+
+        .body-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--progress-bg), var(--border));
+            transition: all 0.35s;
+            margin-bottom: 4px;
+        }
+
+        /* Dark mode improvements for body icons */
+        body.dark .body-icon {
+            background: linear-gradient(135deg, var(--accent), var(--button));
+        }
+
+        .body-zone:hover .body-icon {
+            background: linear-gradient(135deg, var(--accent), var(--button));
+            transform: scale(1.1);
+        }
+
+        .body-zone.active .body-icon {
+            background: linear-gradient(135deg, var(--button), var(--accent));
+            box-shadow: 0 4px 12px var(--focus-shadow);
+        }
+
+        .body-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--text);
+            opacity: 0.7;
+            transition: all 0.35s;
+        }
+
+        /* Dark mode improvements for body icon SVGs */
+        body.dark .body-icon svg {
+            fill: white;
+            opacity: 0.9;
+        }
+
+        .body-zone:hover .body-icon svg,
+        .body-zone.active .body-icon svg {
+            fill: white;
+            opacity: 1;
+        }
+
+        .body-label {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.3px;
+        }
+
+        /* Dark mode improvements for body labels */
+        body.dark .body-label {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* IMPROVED: Done Enough Button - Uses Theme Colors */
+        .done-enough-btn {
+            background: linear-gradient(135deg, var(--button), var(--accent));
+            color: white;
+            border: none;
+            padding: 20px 36px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 25px var(--focus-shadow);
+            width: 100%;
+            margin: 15px 0 20px 0;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .done-enough-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .done-enough-btn:hover::before {
+            left: 100%;
+        }
+
+        .done-enough-btn:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 35px var(--focus-shadow);
+            background: linear-gradient(135deg, var(--button-hover), var(--button));
+        }
+
+        .done-enough-btn:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 6px 20px var(--focus-shadow);
+            animation: kawaiiBounce 0.6s ease;
+        }
+
+        /* Celebration Animation */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: auto;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .confetti {
+            position: absolute;
+            width: auto;
+            height: auto;
+            font-weight: bold;
+            animation: fall linear forwards;
+            pointer-events: none;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            will-change: transform;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .celebration-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+            text-align: center;
+            z-index: 1001;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border: 5px solid var(--accent);
+            max-width: 90%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            will-change: transform;
+        }
+
+        .celebration-message:hover {
+            transform: translate(-50%, -50%) scale(1.03);
+        }
+
+        .celebration-message h3 {
+            color: var(--text);
+            margin-bottom: 12px;
+            font-size: 1.6em;
+        }
+
+        .celebration-message p {
+            opacity: 0.85;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+            line-height: 1.5;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--kawaii-shadow);
+            border: 2px solid var(--border);
+        }
+
+        .theme-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px var(--focus-shadow);
+        }
+
+        .mood-selector {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .mood-button {
+            width: 75px;
+            height: 75px;
+            font-size: 2.5em;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid transparent;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.6);
+            position: relative;
+        }
+
+        .mood-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mood-button:hover {
+            transform: scale(1.2) rotate(5deg);
+            border-color: var(--border);
+        }
+
+        .mood-button:hover::before {
+            opacity: 0.2;
+            transform: scale(1.3);
+        }
+
+        .mood-button.selected {
+            border-color: var(--accent);
+            background: var(--card-bg);
+            box-shadow: 0 0 25px var(--focus-shadow);
+            transform: scale(1.15);
+            animation: kawaiiBounce 0.6s ease;
+        }
+
+        @keyframes kawaiiBounce {
+            0%, 100% { transform: scale(1.15); }
+            50% { transform: scale(1.25); }
+        }
+
+        .energy-tracker {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .energy-level {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            padding: 10px;
+        }
+
+        .energy-level:hover {
+            transform: scale(1.1);
+        }
+
+        .energy-level.selected {
+            border-color: var(--accent);
+            background: var(--card-bg);
+            box-shadow: 0 0 20px var(--focus-shadow);
+        }
+
+        .energy-icon {
+            font-size: 1.8em;
+        }
+
+        .energy-dots {
+            display: flex;
+            gap: 3px;
+        }
+
+        .energy-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .date-nav {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--kawaii-shadow);
+            border: 2px solid var(--border);
+        }
+
+        .date-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--text);
+            padding: 8px 16px;
+            background: var(--progress-bg);
+            border-radius: 10px;
+        }
+
+        .streak-display {
+            text-align: center;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--kawaii-shadow);
+            border: 3px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .streak-display::before {
+            content: '🌟';
+            position: absolute;
+            font-size: 3em;
+            opacity: 0.1;
+            left: -20px;
+            top: -10px;
+            animation: floatTitle 4s ease-in-out infinite;
+        }
+
+        .streak-display::after {
+            content: '';
+            position: absolute;
+            font-size: 3em;
+            opacity: 0.1;
+            right: -20px;
+            bottom: -10px;
+            animation: floatTitle 4s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        .streak-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+            animation: kawaiiBounce 2s ease-in-out infinite;
+        }
+
+        .streak-label {
+            font-size: 1.3em;
+            color: var(--text);
+            margin-top: 8px;
+            font-weight: 600;
+        }
+
+        #statusMessage {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+        }
+
+        #statusMessage.show {
+            transform: translateX(0);
+        }
+
+        #statusMessage.success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #statusMessage.error {
+            background: #f44336;
+            color: white;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+            cursor: grab;
+            position: relative;
+        }
+
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .task-item.dragging {
+            opacity: 0.4;
+            cursor: grabbing;
+            transform: rotate(2deg) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .task-item.drag-over {
+            border-color: var(--accent);
+            border-width: 3px;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .drag-handle {
+            cursor: grab;
+            color: var(--text);
+            opacity: 0.3;
+            transition: opacity 0.2s;
+            font-size: 1.2em;
+            padding: 0 4px;
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .task-item:hover .drag-handle {
+            opacity: 0.7;
+        }
+
+        .task-item.dragging .drag-handle {
+            cursor: grabbing;
+        }
+
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+        }
+
+        .progress-container {
+            background: var(--progress-bg);
+            border-radius: 20px;
+            height: 30px;
+            margin: 15px 0;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--progress-fill), var(--accent));
+            height: 100%;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s;
+            width: 0%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .progress-container::after {
+            content: attr(data-progress);
+            position: relative;
+            z-index: 1;
+            font-weight: bold;
+            color: var(--text);
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+        }
+
+        .sticky-note {
+            background: var(--progress-bg);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .sticky-note:hover {
+            background: var(--card-bg);
+            transform: translateX(5px);
+        }
+
+        .delete-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+
+        .delete-btn:hover {
+            background: #ff5252;
+        }
+
+        .entries-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .entry-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .entry-item:hover {
+            background: var(--card-bg);
+            transform: translateX(5px);
+            border-color: var(--accent);
+        }
+
+        .backup-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quick-capture {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            z-index: 100;
+        }
+
+        .quick-capture-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            font-size: 2.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: gentleBounce 3s ease-in-out infinite;
+        }
+
+        .quick-capture-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .quick-capture-panel {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 300px;
+            display: none;
+            border: 2px solid var(--border);
+        }
+
+        .quick-capture-panel.show {
+            display: block;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .emoji-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 4px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            user-select: none;
+        }
+
+        .emoji-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+        }
+
+        .emoji-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .emoji-toggle.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        /* Brightness Toggle Styles */
+        .brightness-toggle {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 4px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 100;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            user-select: none;
+        }
+
+        .brightness-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+        }
+
+        .brightness-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .brightness-toggle.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .brightness-panel {
+            position: fixed;
+            bottom: 180px;
+            right: 20px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 220px;
+            display: none;
+            border: 2px solid var(--border);
+            z-index: 99;
+        }
+
+        .brightness-panel.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .brightness-slider-container {
+            margin: 15px 0;
+        }
+
+        .brightness-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--progress-bg);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 2px solid var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .brightness-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            border: 2px solid var(--card-bg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .brightness-levels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .brightness-level {
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        /* Brightness classes for the body */
+        body.brightness-low {
+            filter: brightness(0.7);
+        }
+
+        body.brightness-medium {
+            filter: brightness(0.85);
+        }
+
+        body.brightness-high {
+            filter: brightness(1);
+        }
+
+        .kawaii-float {
+            position: fixed;
+            z-index: -1;
+            font-size: 2em;
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .emojis-hidden .kawaii-float {
+            display: none;
+        }
+
+        body.minimal .kawaii-float {
+            animation: none;
+            display: none;
+        }
+
+        body.minimal .card:hover {
+            transform: none;
+        }
+
+        body.minimal button:hover {
+            transform: none;
+        }
+
+        .timer-display {
+            font-size: 3.5em;
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--card-bg) 100%);
+            border-radius: 20px;
+            margin: 15px 0;
+            font-weight: bold;
+            color: var(--button);
+            border: 3px solid var(--border);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            letter-spacing: 0.05em;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-display:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-controls button {
+            transition: all 0.3s ease;
+            line-height: 1.4;
+            padding: 12px 18px;
+        }
+
+        .timer-controls button:hover {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .selfcare-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        /* Dark mode improvements for self-care items */
+        body.dark .selfcare-item {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid var(--accent);
+        }
+
+        body.dark .selfcare-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--button-hover);
+        }
+
+        .selfcare-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .selfcare-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        /* NEW: Self-care management styles */
+        .selfcare-management {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid var(--border);
+        }
+
+        .selfcare-edit-panel {
+            background: var(--progress-bg);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .selfcare-edit-panel.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .selfcare-edit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .selfcare-edit-input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .selfcare-edit-emoji {
+            width: 60px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .selfcare-edit-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .selfcare-edit-btn {
+            padding: 8px 12px;
+            font-size: 0.9em;
+            margin-bottom: 0;
+        }
+
+        /* NEW: Stats panel */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: var(--progress-bg);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mood-button {
+                font-size: 2em;
+                width: 60px;
+                height: 60px;
+                padding: 10px;
+            }
+
+            .energy-level {
+                width: 75px;
+                height: 75px;
+                font-size: 0.75em;
+            }
+
+            .energy-icon {
+                font-size: 1.6em;
+            }
+
+            .energy-dot {
+                width: 5px;
+                height: 5px;
+            }
+
+            .date-nav {
+                font-size: 0.9em;
+            }
+
+            .quick-capture {
+                left: 10px;
+                bottom: 80px;
+            }
+
+            .body-scan-simple {
+                grid-template-columns: 1fr;
+            }
+
+            .brightness-toggle {
+                bottom: 160px;
+                right: 10px;
+            }
+
+            .stats-panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="kawaiiContainer"></div>
+    
+    <!-- Brightness Toggle -->
+    <div class="brightness-toggle" id="brightnessToggle" onclick="toggleBrightnessPanel(event)" title="Adjust brightness">🔆</div>
+    <div class="brightness-panel" id="brightnessPanel">
+        <h3 style="margin-bottom: 10px; text-align: center;">Brightness</h3>
+        <div class="brightness-slider-container">
+            <input type="range" min="1" max="3" value="3" class="brightness-slider" id="brightnessSlider">
+            <div class="brightness-levels">
+                <span class="brightness-level">Low</span>
+                <span class="brightness-level">Medium</span>
+                <span class="brightness-level">High</span>
+            </div>
+        </div>
+        <button onclick="toggleBrightnessPanel()" style="width: 100%;">Close</button>
+    </div>
+    
+    <div class="emoji-toggle" id="emojiToggle" onclick="toggleEmojis(event)" title="Toggle floating emojis">✨</div>
+    
+    <!-- Quick Capture Button -->
+    <div class="quick-capture">
+        <button class="quick-capture-btn" onclick="toggleQuickCapture()" title="Quick Thought Capture">💭</button>
+        <div class="quick-capture-panel" id="quickCapturePanel">
+            <h3 style="margin-bottom: 10px;">Quick Capture</h3>
+            <textarea id="quickCaptureInput" placeholder="Quick thought, reminder, or idea..." style="min-height: 80px;"></textarea>
+            <button onclick="saveQuickCapture()" style="width: 100%;">Save to Today</button>
+        </div>
+    </div>
+    
+    <div id="statusMessage"></div>
+
+    <div class="container">
+        <header>
+            <h1>PumCutie 🎃 Daily Diary</h1>
+            <p class="subtitle">Neurodivergent-friendly journal</p>
+            <p style="font-size: 0.9em; opacity: 0.7; margin-top: 5px;">Executive function support • Energy tracking • Private & local</p>
+        </header>
+
+        <!-- Theme Selector -->
+        <div class="theme-selector">
+            <button class="theme-btn active" data-theme="pastel" title="Soft pink tones">Pastel</button>
+            <button class="theme-btn" data-theme="pumpkin" title="Warm autumn vibes">Pumpkin</button>
+            <button class="theme-btn" data-theme="cozy" title="Earth tones">Cozy</button>
+            <button class="theme-btn" data-theme="minimal" title="Clean & simple">Minimal</button>
+            <button class="theme-btn" data-theme="dark" title="Night mode">Dark</button>
+            <button class="theme-btn" data-theme="forest" title="Nature greens">Forest</button>
+            <button class="theme-btn" data-theme="ocean" title="Cool blues">Ocean</button>
+            <button class="theme-btn" data-theme="sunset" title="Warm oranges">Sunset</button>
+            <button class="theme-btn" data-theme="lavender" title="Purple tones">Lavender</button>
+        </div>
+
+        <!-- Streak Counter -->
+        <div class="streak-display" id="streakDisplay">
+            <div class="streak-number" id="streakNumber">0</div>
+            <div class="streak-label">day streak! 🔥</div>
+        </div>
+
+        <!-- IMPROVED: Done Enough Button with Theme Colors -->
+        <button class="done-enough-btn" onclick="celebrateSmallWin(event)">
+            🌙 I Did Enough Today
+        </button>
+
+        <!-- Date Navigation -->
+        <div class="date-nav">
+            
+            <input type="date" id="datePicker" onchange="jumpToDate(this.value)">
+            <button onclick="changeDate(-1)">← Previous</button>
+            <div class="date-display" id="dateDisplay"></div>
+            <button onclick="goToToday()">Today</button>
+            <button onclick="changeDate(1)">Next →</button>
+        </div>
+
+        <!-- Mood & Energy Tracker -->
+        <div class="card">
+            <h2>How are you feeling today?</h2>
+            <div class="mood-selector">
+                <button class="mood-button" data-mood="amazing" title="Amazing">🤩</button>
+                <button class="mood-button" data-mood="great" title="Great">😊</button>
+                <button class="mood-button" data-mood="good" title="Good">🙂</button>
+                <button class="mood-button" data-mood="okay" title="Okay">😐</button>
+                <button class="mood-button" data-mood="meh" title="Meh">😕</button>
+                <button class="mood-button" data-mood="struggling" title="Struggling">😔</button>
+                <button class="mood-button" data-mood="rough" title="Rough">😢</button>
+            </div>
+            
+            <h3 style="margin-top: 20px; margin-bottom: 10px;">Energy Level (Spoons)</h3>
+            <p style="font-size: 0.9em; opacity: 0.8; margin-bottom: 10px;">How many spoons do you have today?</p>
+            <div class="energy-tracker">
+                <button class="energy-level" data-energy="1" title="Very Low Energy">
+                    <div class="energy-icon">🥄</div>
+                    <div class="energy-dots">
+                        <div class="energy-dot"></div>
+                    </div>
+                </button>
+                <button class="energy-level" data-energy="2" title="Low Energy">
+                    <div class="energy-icon">🥄</div>
+                    <div class="energy-dots">
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                    </div>
+                </button>
+                <button class="energy-level" data-energy="3" title="Medium Energy">
+                    <div class="energy-icon">🥄</div>
+                    <div class="energy-dots">
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                    </div>
+                </button>
+                <button class="energy-level" data-energy="4" title="Good Energy">
+                    <div class="energy-icon">🥄</div>
+                    <div class="energy-dots">
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                    </div>
+                </button>
+                <button class="energy-level" data-energy="5" title="Excellent Energy">
+                    <div class="energy-icon">🥄</div>
+                    <div class="energy-dots">
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                        <div class="energy-dot"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- IMPROVED: Body Check-In Card - Better Dark Mode Visibility -->
+        <div class="card">
+            <h2>Body Check-In</h2>
+            <p style="margin-bottom: 15px; opacity: 0.8;">Quick body scan - notice where you feel things</p>
+            
+            <div class="body-scan-simple">
+                <div class="body-zone" data-zone="head" onclick="toggleBodyZone(this)">
+                    <div class="body-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C9.243 2 7 4.243 7 7v3c0 1.66 1.34 3 3 3h4c1.66 0 3-1.34 3-3V7c0-2.757-2.243-5-5-5z"/>
+                            <path d="M12 14c-3.86 0-7 3.14-7 7h14c0-3.86-3.14-7-7-7z"/>
+                        </svg>
+                    </div>
+                    <span class="body-label">Head</span>
+                </div>
+                <div class="body-zone" data-zone="chest" onclick="toggleBodyZone(this)">
+                    <div class="body-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </div>
+                    <span class="body-label">Chest</span>
+                </div>
+                <div class="body-zone" data-zone="stomach" onclick="toggleBodyZone(this)">
+                    <div class="body-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="12" cy="12" rx="8" ry="6"/>
+                            <path d="M8 10c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1zm6 0c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1z"/>
+                        </svg>
+                    </div>
+                    <span class="body-label">Stomach</span>
+                </div>
+                <div class="body-zone" data-zone="hands" onclick="toggleBodyZone(this)">
+                    <div class="body-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+                        </svg>
+                    </div>
+                    <span class="body-label">Hands</span>
+                </div>
+            </div>
+            
+            <textarea 
+                id="bodyNotes" 
+                placeholder="Quick note: tension, calm, buzzing, heavy, light, warmth, tingling..." 
+                style="margin-top: 15px; min-height: 60px;"
+                oninput="saveEntry()"
+            ></textarea>
+        </div>
+
+        <div class="grid">
+            <!-- UPGRADED: Daily Self-Care Checklist with Management -->
+            <div class="card">
+                <h2>Daily Self-Care</h2>
+                <p style="margin-bottom: 15px; opacity: 0.8; font-size: 0.9em;">Track your daily self-care tasks</p>
+                <div id="selfCareChecklist"></div>
+                
+                <div class="selfcare-management">
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border);">
+                        <h4 style="margin-bottom: 10px;">Add New Task</h4>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" class="selfcare-edit-input" id="newSelfCareText" placeholder="Add a self-care task..." style="flex: 1;">
+                            <button onclick="addCustomSelfCareItem()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gratitude -->
+            <div class="card">
+                <h2>Gratitude Corner</h2>
+                <p style="margin-bottom: 10px; opacity: 0.8;">What went well today? What are you grateful for?</p>
+                <textarea id="gratitude" placeholder="I'm grateful for..." oninput="saveEntry()"></textarea>
+            </div>
+        </div>
+
+        <!-- Personal Hygiene & Health Tracker -->
+        <div class="grid">
+            <!-- Personal Hygiene Tracker -->
+            <div class="card">
+                <h2>🧼 Personal Hygiene</h2>
+                <p style="margin-bottom: 15px; opacity: 0.8; font-size: 0.9em;">Gentle reminders for daily hygiene tasks</p>
+                <div id="hygieneChecklist"></div>
+                
+                <div class="selfcare-management">
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border);">
+                        <h4 style="margin-bottom: 10px;">Add Custom Hygiene Task</h4>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" class="selfcare-edit-input" id="newHygieneText" placeholder="Add a hygiene task..." style="flex: 1;">
+                            <button onclick="addCustomHygieneItem()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health Tracker -->
+            <div class="card">
+                <h2>🏥 Health Tracker</h2>
+                <p style="margin-bottom: 15px; opacity: 0.8; font-size: 0.9em;">Track medications, water, meals, and wellness</p>
+                <div id="healthChecklist"></div>
+                
+                <div class="selfcare-management">
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid var(--border);">
+                        <h4 style="margin-bottom: 10px;">Add Custom Health Item</h4>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" class="selfcare-edit-input" id="newHealthText" placeholder="Add a health item..." style="flex: 1;">
+                            <button onclick="addCustomHealthItem()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Focus Timer -->
+        <div class="card">
+            <h2>🍅 Focus Timer</h2>
+            <p style="margin-bottom: 15px; opacity: 0.8; text-align: center;">Stay focused with pomodoro technique or custom time blocks</p>
+            
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            
+            <div style="margin: 20px 0;">
+                <p style="text-align: center; font-size: 0.9em; opacity: 0.7; margin-bottom: 12px; font-weight: 600;">Quick Start</p>
+                <div class="timer-controls">
+                    <button onclick="startTimer(25)" style="background: var(--button); flex: 1; min-width: 120px;">
+                        Pomodoro<br><span style="font-size: 0.85em; opacity: 0.9;">(25 min)</span>
+                    </button>
+                    <button onclick="startTimer(15)" style="flex: 1; min-width: 120px;">
+                        Short<br><span style="font-size: 0.85em; opacity: 0.9;">(15 min)</span>
+                    </button>
+                    <button onclick="startTimer(5)" style="flex: 1; min-width: 120px;">
+                        Break<br><span style="font-size: 0.85em; opacity: 0.9;">(5 min)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 15px;">
+                <button id="pauseBtn" onclick="pauseTimer()" style="min-width: 100px;">Pause</button>
+                <button id="resumeBtn" onclick="resumeTimer()" style="min-width: 100px; display: none;">Resume</button>
+                <button onclick="resetTimer()" style="min-width: 100px;">Reset</button>
+            </div>
+
+            <div style="border-top: 2px solid var(--border); padding-top: 15px; margin-top: 15px;">
+                <p style="text-align: center; font-size: 0.9em; opacity: 0.7; margin-bottom: 10px; font-weight: 600;">Custom Duration</p>
+                <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
+                    <input type="number" id="customTimerInput" placeholder="Enter minutes" min="1" max="999" style="width: 140px; text-align: center; margin-bottom: 0; padding: 10px;" onkeypress="if(event.key==='Enter') startCustomTimer()">
+                    <button onclick="startCustomTimer()" style="min-width: 120px;">Start</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Persistent Reminders -->
+            <div class="card">
+                <h2>💌 Daily Reminders (Global)</h2>
+                <p style="margin-bottom: 10px; opacity: 0.8;">These appear every day - perfect for habits or important reminders!</p>
+                <div class="sticky-notes-container" id="persistentNotesContainer"></div>
+                <input type="text" id="persistentNoteInput" placeholder="Add a daily reminder...">
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="addPersistentNote()">Add Reminder</button>
+                    <button onclick="clearAllPersistentNotes()" style="background: #ff6b6b;">Clear All</button>
+                </div>
+            </div>
+
+            <!-- Today's Sticky Notes -->
+            <div class="card">
+                <h2>Sticky Notes (Today Only)</h2>
+                <p style="margin-bottom: 10px; opacity: 0.8;">Quick thoughts and reminders for today</p>
+                <div class="sticky-notes-container" id="notesContainer"></div>
+                <input type="text" id="noteInput" placeholder="Add a sticky note...">
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="addNote()">Add Note</button>
+                    <button onclick="clearAllNotes()" style="background: #ff6b6b;">Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Task List with Priority -->
+        <div class="card">
+            <h2>📓 Task List</h2>
+            <p style="margin-bottom: 10px; opacity: 0.8;">Break big tasks into tiny steps. Every small win counts!</p>
+            <div id="taskListContainer"></div>
+            <div class="progress-container" data-progress="0%">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <input type="text" id="taskInput" placeholder="Task description...">
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <input type="time" id="taskTime" placeholder="Time" style="flex: 1;">
+                <select id="taskPriority" style="flex: 1;">
+                    <option value="">No priority</option>
+                    <option value="high">🔴 High</option>
+                    <option value="medium">🟡 Medium</option>
+                    <option value="low">🟢 Low</option>
+                </select>
+            </div>
+            <button onclick="addTask()" style="width: 100%;">Add Task</button>
+        </div>
+
+        <!-- Brain Dump -->
+        <div class="card">
+            <h2>Brain Dump & Daily Notes</h2>
+            <p style="margin-bottom: 10px; opacity: 0.8;">Your safe space - thoughts, worries, ideas, plans... No judgment, no pressure. Get it all out.</p>
+            <textarea id="brainDump" placeholder="What's on your mind today?" style="resize: vertical; min-height: 150px;" oninput="saveEntry()"></textarea>
+        </div>
+
+        <div class="grid">
+            <!-- Past Entries -->
+            <div class="card">
+                <h2>Browse Past Entries</h2>
+                <p style="margin-bottom: 15px; opacity: 0.8;">Click on any date to view that day's entry</p>
+                <div class="entries-list" id="entriesList"></div>
+            </div>
+
+            <!-- NEW: Stats Panel -->
+            <div class="card">
+                <h2>Your Stats</h2>
+                <p style="margin-bottom: 15px; opacity: 0.8;">Track your progress over time</p>
+                <div class="stats-panel" id="statsPanel">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalEntries">0</div>
+                        <div class="stat-label">Total Entries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgMood">-</div>
+                        <div class="stat-label">Avg Mood</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgEnergy">-</div>
+                        <div class="stat-label">Avg Energy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="tasksCompleted">0</div>
+                        <div class="stat-label">Tasks Done</div>
+                    </div>
+                </div>
+                <button onclick="updateStats()" style="width: 100%; margin-top: 15px;">Refresh Stats</button>
+            </div>
+        </div>
+
+        <!-- Backup Controls -->
+        <div class="card">
+            <h2>Backup & Restore</h2>
+            <p style="margin-bottom: 10px; opacity: 0.8;">Your diary is safely stored locally. Export for backup!</p>
+            <div class="backup-controls">
+                <button onclick="exportData()">Export All Data</button>
+                <button onclick="document.getElementById('importFile').click()">Import Data</button>
+                <button onclick="clearAllData()" style="background: #fa9aa3;">Clear All Data</button>
+                <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: rgba(246, 211, 211, 0.5); border-radius: 10px; font-size: 0.9em;">
+                <strong>Privacy Note:</strong> All data is stored locally in your browser using IndexedDB. Nothing is sent to any server. Export regularly to back up your data!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * PumQT Daily Diary - Neurodivergent-Friendly Edition
+         * Enhanced with executive function support, energy tracking, and more
+         * Version: 3.1 - Fixed Self-Care Functionality
+         */
+
+        // ============================================================================
+        // DATABASE CONFIGURATION & SETUP
+        // ============================================================================
+
+        let db = null;
+        let currentDate = new Date();
+        const DB_NAME = 'AUDHDDiaryDB';
+        const DB_VERSION = 7;
+
+        // Default self-care items (empty - customize your own!)
+        const DEFAULT_SELF_CARE = [];
+
+        // Default hygiene items - common daily hygiene tasks
+        const DEFAULT_HYGIENE = [
+            { id: 'hygiene_shower', text: 'Shower/Bath' },
+            { id: 'hygiene_teeth', text: 'Brush teeth' },
+            { id: 'hygiene_face', text: 'Wash face' },
+            { id: 'hygiene_hair', text: 'Brush/style hair' },
+            { id: 'hygiene_clothes', text: 'Change into clean clothes' }
+        ];
+
+        // Default health items - medications, water, meals
+        const DEFAULT_HEALTH = [
+            { id: 'health_meds_am', text: 'Morning medication' },
+            { id: 'health_meds_pm', text: 'Evening medication' },
+            { id: 'health_water', text: 'Drink water (8 glasses)' },
+            { id: 'health_breakfast', text: 'Eat breakfast' },
+            { id: 'health_lunch', text: 'Eat lunch' },
+            { id: 'health_dinner', text: 'Eat dinner' },
+            { id: 'health_vitamins', text: 'Take vitamins' }
+        ];
+
+        // Emoji list for floating elements
+        const emojis = ['🌸', '🧡', '✨', '🎃', '🍄', '🦄', '🍓', '🍬', '🐱', '🐻', '🌈', '🦋', '🦊', '🐶', '🐙', '🦉', '🍩','🍂','🌻','🐋','🌿','🍣','🍵','🍊','🐾','🌵','🍁','🌲','🍄‍🟫','🪐','🌙','🍉','🥮','🧁','🫜','🫐','🐢','🌜','🪻','🌳','🫶','🧋','🥑','🍒','🍥','💌','🧧','☕️','🥐','🫖','🥟'];
+
+        // Timer state
+        let timerInterval = null;
+        let timerSeconds = 1500; // 25 minutes default
+        let timerRunning = false;
+
+        // Self-care items
+        let customSelfCareItems = [];
+        
+        // Hygiene items
+        let customHygieneItems = [];
+        
+        // Health items
+        let customHealthItems = [];
+        
+        // Track which default items are hidden
+        let hiddenHygieneItems = [];
+        let hiddenHealthItems = [];
+
+        /**
+         * Initialize IndexedDB with proper error handling and migration support
+         */
+        function initDB() {
+            return new Promise((resolve, reject) => {
+                if (!window.indexedDB) {
+                    showStatus('IndexedDB not supported in this browser', 'error');
+                    reject(new Error('IndexedDB not supported'));
+                    return;
+                }
+
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                
+                request.onerror = (event) => {
+                    console.error('Database error:', event.target.error);
+                    showStatus('Database initialization failed. Please check browser permissions.', 'error');
+                    reject(event.target.error);
+                };
+                
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    
+                    db.onerror = (event) => {
+                        console.error('Database error:', event.target.error);
+                        showStatus('Database error occurred', 'error');
+                    };
+
+                    db.onversionchange = () => {
+                        db.close();
+                        showStatus('Database is being upgraded. Please refresh the page.', 'error');
+                    };
+
+                    resolve(db);
+                };
+                
+                request.onupgradeneeded = (event) => {
+                    db = event.target.result;
+                    const oldVersion = event.oldVersion;
+                    
+                    console.log(`Upgrading database from version ${oldVersion} to ${DB_VERSION}`);
+                    
+                    if (!db.objectStoreNames.contains('entries')) {
+                        const entryStore = db.createObjectStore('entries', { keyPath: 'date' });
+                        entryStore.createIndex('date', 'date', { unique: true });
+                    }
+                    
+                    if (!db.objectStoreNames.contains('settings')) {
+                        db.createObjectStore('settings', { keyPath: 'key' });
+                    }
+                };
+            });
+        }
+
+        /**
+         * Execute a database transaction with proper error handling
+         */
+        async function executeTransaction(storeNames, mode, callback) {
+            return new Promise((resolve, reject) => {
+                if (!db) {
+                    reject(new Error('Database not initialized'));
+                    return;
+                }
+
+                try {
+                    const transaction = db.transaction(storeNames, mode);
+                    
+                    transaction.onerror = (event) => {
+                        console.error('Transaction error:', event.target.error);
+                        reject(event.target.error);
+                    };
+                    
+                    transaction.oncomplete = () => {
+                        resolve();
+                    };
+                    
+                    callback(transaction);
+                } catch (error) {
+                    console.error('Transaction creation error:', error);
+                    reject(error);
+                }
+            });
+        }
+
+        // ============================================================================
+        // STATUS MESSAGES
+        // ============================================================================
+
+        function showStatus(message, type = 'success') {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.textContent = message;
+            statusEl.className = `show ${type}`;
+            
+            setTimeout(() => {
+                statusEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============================================================================
+        // DATE UTILITIES
+        // ============================================================================
+
+        function getDateString(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function updateDateDisplay() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('dateDisplay').textContent = currentDate.toLocaleDateString('en-US', options);
+            document.getElementById('datePicker').value = getDateString(currentDate);
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDateDisplay();
+            loadEntry(getDateString(currentDate));
+        }
+
+        function jumpToDate(dateString) {
+            currentDate = new Date(dateString + 'T12:00:00');
+            updateDateDisplay();
+            loadEntry(dateString);
+            
+            // Scroll to top so user can see the loaded entry
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Show a status message to confirm the date was loaded
+            const date = new Date(dateString + 'T12:00:00');
+            const dateStr = date.toLocaleDateString('en-US', { 
+                month: 'short', 
+                day: 'numeric', 
+                year: 'numeric' 
+            });
+            showStatus(`Loaded entry for ${dateStr}`, 'success');
+        }
+
+        function goToToday() {
+            currentDate = new Date();
+            updateDateDisplay();
+            loadEntry(getDateString(currentDate));
+        }
+
+        // ============================================================================
+        // DIARY ENTRY MANAGEMENT
+        // ============================================================================
+
+        function createEmptyEntry(dateStr) {
+            return {
+                date: dateStr,
+                mood: null,
+                energy: null,
+                bodyZones: [],
+                bodyNotes: '',
+                selfCare: [],
+                hygiene: [],
+                health: [],
+                tasks: [],
+                notes: [],
+                gratitude: '',
+                brainDump: '',
+                timestamp: Date.now()
+            };
+        }
+
+        function validateEntry(entry) {
+            return entry && 
+                   typeof entry === 'object' && 
+                   entry.date && 
+                   typeof entry.date === 'string';
+        }
+
+        async function loadEntry(dateStr) {
+            try {
+                await executeTransaction(['entries'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('entries');
+                    const request = store.get(dateStr);
+                    
+                    request.onsuccess = () => {
+                        const entry = request.result || createEmptyEntry(dateStr);
+                        populateForm(entry);
+                    };
+                    
+                    request.onerror = () => {
+                        console.error('Error loading entry');
+                        populateForm(createEmptyEntry(dateStr));
+                    };
+                });
+            } catch (error) {
+                console.error('Load entry error:', error);
+                populateForm(createEmptyEntry(dateStr));
+            }
+        }
+
+        function populateForm(entry) {
+            // Mood
+            document.querySelectorAll('.mood-button').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.mood === entry.mood);
+            });
+            
+            // Energy
+            document.querySelectorAll('.energy-level').forEach(btn => {
+                btn.classList.toggle('selected', btn.dataset.energy === entry.energy);
+            });
+
+            // Body zones
+            document.querySelectorAll('.body-zone').forEach(zone => {
+                zone.classList.toggle('active', 
+                    entry.bodyZones && entry.bodyZones.includes(zone.dataset.zone));
+            });
+
+            // Body notes
+            document.getElementById('bodyNotes').value = entry.bodyNotes || '';
+            
+            // Self-care
+            document.querySelectorAll('.selfcare-checkbox').forEach(cb => {
+                cb.checked = entry.selfCare && entry.selfCare.includes(cb.dataset.id);
+            });
+            
+            // Hygiene
+            document.querySelectorAll('#hygieneChecklist .selfcare-checkbox').forEach(cb => {
+                cb.checked = entry.hygiene && entry.hygiene.includes(cb.dataset.id);
+            });
+            
+            // Health
+            document.querySelectorAll('#healthChecklist .selfcare-checkbox').forEach(cb => {
+                cb.checked = entry.health && entry.health.includes(cb.dataset.id);
+            });
+            
+            // Tasks
+            const taskList = document.getElementById('taskListContainer');
+            taskList.innerHTML = '';
+            if (entry.tasks) {
+                entry.tasks.forEach((task, index) => {
+                    addTaskToDOM(task, index);
+                });
+            }
+            updateProgress();
+            
+            // Notes
+            const notesContainer = document.getElementById('notesContainer');
+            notesContainer.innerHTML = '';
+            if (entry.notes) {
+                entry.notes.forEach((note, index) => {
+                    addNoteToDOM(note, index, 'notesContainer', false);
+                });
+            }
+            
+            // Text areas
+            document.getElementById('gratitude').value = entry.gratitude || '';
+            document.getElementById('brainDump').value = entry.brainDump || '';
+        }
+
+        async function saveEntry() {
+            const dateStr = getDateString(currentDate);
+            const selectedMood = document.querySelector('.mood-button.selected');
+            const selectedEnergy = document.querySelector('.energy-level.selected');
+            
+            const activeZones = Array.from(document.querySelectorAll('.body-zone.active'))
+                .map(zone => zone.dataset.zone);
+            
+            const checkedCare = Array.from(document.querySelectorAll('#selfCareChecklist .selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            const checkedHygiene = Array.from(document.querySelectorAll('#hygieneChecklist .selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            const checkedHealth = Array.from(document.querySelectorAll('#healthChecklist .selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            const tasks = [];
+            document.querySelectorAll('.task-item').forEach((item, index) => {
+                const checkbox = item.querySelector('.task-checkbox');
+                const text = item.querySelector('.task-text');
+                const time = item.querySelector('.task-time');
+                const priority = item.dataset.priority;
+                tasks.push({
+                    text: text.textContent,
+                    completed: checkbox.checked,
+                    time: time ? time.textContent : '',
+                    priority: priority || ''
+                });
+            });
+            
+            const notes = [];
+            document.querySelectorAll('#notesContainer .sticky-note').forEach(note => {
+                const text = note.querySelector('span');
+                if (text) notes.push(text.textContent);
+            });
+            
+            const entry = {
+                date: dateStr,
+                mood: selectedMood ? selectedMood.dataset.mood : null,
+                energy: selectedEnergy ? selectedEnergy.dataset.energy : null,
+                bodyZones: activeZones,
+                bodyNotes: document.getElementById('bodyNotes').value,
+                selfCare: checkedCare,
+                hygiene: checkedHygiene,
+                health: checkedHealth,
+                tasks: tasks,
+                notes: notes,
+                gratitude: document.getElementById('gratitude').value,
+                brainDump: document.getElementById('brainDump').value,
+                timestamp: Date.now()
+            };
+            
+            try {
+                await executeTransaction(['entries'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('entries');
+                    store.put(entry);
+                    
+                    transaction.oncomplete = () => {
+                        updateEntriesList();
+                        updateStreak();
+                    };
+                });
+            } catch (error) {
+                console.error('Save entry error:', error);
+                showStatus('Error saving entry', 'error');
+            }
+        }
+
+        // ============================================================================
+        // MOOD & ENERGY TRACKING
+        // ============================================================================
+
+        document.querySelectorAll('.mood-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.mood-button').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                saveEntry();
+                showStatus('Mood updated! 🧋', 'success');
+            });
+        });
+
+        document.querySelectorAll('.energy-level').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.energy-level').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                saveEntry();
+                showStatus('Energy level recorded! ⚡', 'success');
+            });
+        });
+
+        // ============================================================================
+        // BODY CHECK-IN
+        // ============================================================================
+
+        function toggleBodyZone(element) {
+            element.classList.toggle('active');
+            saveEntry();
+            
+            if (element.classList.contains('active')) {
+                showStatus(`${element.dataset.zone} noted`, 'success');
+            }
+        }
+
+        // ============================================================================
+        // FIXED SELF-CARE CHECKLIST
+        // ============================================================================
+
+        async function loadSelfCareItems() {
+            try {
+                await executeTransaction(['settings'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('selfCareItems');
+                    
+                    request.onsuccess = () => {
+                        const data = request.result;
+                        if (data && data.items) {
+                            // Filter out any custom items that duplicate default items
+                            customSelfCareItems = data.items.filter(customItem => 
+                                !DEFAULT_SELF_CARE.find(defaultItem => defaultItem.id === customItem.id)
+                            );
+                        } else {
+                            customSelfCareItems = [];
+                        }
+                        renderSelfCareChecklist();
+                    };
+                });
+            } catch (error) {
+                console.error('Load self-care items error:', error);
+                customSelfCareItems = [];
+                renderSelfCareChecklist();
+            }
+        }
+
+        function renderSelfCareChecklist() {
+            const container = document.getElementById('selfCareChecklist');
+            
+            // Store current checked states before clearing
+            const currentChecked = Array.from(document.querySelectorAll('.selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            container.innerHTML = '';
+            
+            const allItems = [...DEFAULT_SELF_CARE, ...customSelfCareItems];
+            
+            if (allItems.length === 0) {
+                container.innerHTML = '<p style="opacity: 0.6; font-style: italic;">No self-care tasks yet. Add one below!</p>';
+                return;
+            }
+            
+            allItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'selfcare-item';
+                
+                // Restore checked state if it was previously checked
+                const isChecked = currentChecked.includes(item.id);
+                
+                div.innerHTML = `
+                    <input type="checkbox" class="selfcare-checkbox" data-id="${item.id}" ${isChecked ? 'checked' : ''} onchange="saveEntry()">
+                    <span style="flex: 1;">${item.text}</span>
+                    <button class="delete-btn" onclick="deleteCustomSelfCareItem('${item.id}')">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleSelfCareEdit() {
+            const panel = document.getElementById('selfCareEditPanel');
+            panel.classList.toggle('show');
+            
+            if (panel.classList.contains('show')) {
+                renderSelfCareEditList();
+            }
+        }
+
+        function renderSelfCareEditList() {
+            const container = document.getElementById('selfCareEditList');
+            container.innerHTML = '';
+            
+            const allItems = [...DEFAULT_SELF_CARE, ...customSelfCareItems];
+            
+            allItems.forEach(item => {
+                const isDefaultItem = DEFAULT_SELF_CARE.find(d => d.id === item.id);
+                
+                const div = document.createElement('div');
+                div.className = 'selfcare-edit-item';
+                div.innerHTML = `
+                    <input type="text" class="selfcare-edit-emoji" value="${item.emoji}" data-id="${item.id}" ${isDefaultItem ? 'disabled' : ''}>
+                    <input type="text" class="selfcare-edit-input" value="${item.text}" data-id="${item.id}" ${isDefaultItem ? 'disabled' : ''}>
+                    <div class="selfcare-edit-controls">
+                        ${!isDefaultItem ? 
+                            `<button class="selfcare-edit-btn" onclick="updateSelfCareItem('${item.id}')">Update</button>
+                             <button class="delete-btn" onclick="deleteCustomSelfCareItem('${item.id}')">×</button>` : 
+                            `<button class="selfcare-edit-btn" onclick="resetSelfCareItem('${item.id}')" style="opacity: 0.7;">Reset</button>`}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        async function addCustomSelfCareItem() {
+            const textInput = document.getElementById('newSelfCareText');
+            
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter a self-care task', 'error');
+                return;
+            }
+            
+            // Check if this already exists (case insensitive)
+            const allItems = [...DEFAULT_SELF_CARE, ...customSelfCareItems];
+            const exists = allItems.some(item => 
+                item.text.toLowerCase() === text.toLowerCase()
+            );
+            
+            if (exists) {
+                showStatus('This self-care task already exists!', 'error');
+                return;
+            }
+            
+            const newItem = {
+                id: 'custom_' + Date.now(),
+                text: text
+            };
+            
+            customSelfCareItems.push(newItem);
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'selfCareItems', items: customSelfCareItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderSelfCareChecklist();
+                        textInput.value = '';
+                        showStatus('Self-care task added!', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Add self-care item error:', error);
+                showStatus('Error adding task', 'error');
+            }
+        }
+
+        async function updateSelfCareItem(itemId) {
+            const emojiInput = document.querySelector(`.selfcare-edit-emoji[data-id="${itemId}"]`);
+            const textInput = document.querySelector(`.selfcare-edit-input[data-id="${itemId}"]`);
+            
+            const newEmoji = emojiInput.value.trim();
+            const newText = textInput.value.trim();
+            
+            if (!newText) {
+                showStatus('Please enter valid text', 'error');
+                return;
+            }
+            
+            const itemIndex = customSelfCareItems.findIndex(item => item.id === itemId);
+            if (itemIndex !== -1) {
+                customSelfCareItems[itemIndex].emoji = newEmoji;
+                customSelfCareItems[itemIndex].text = newText;
+                
+                try {
+                    await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                        const store = transaction.objectStore('settings');
+                        store.put({ key: 'selfCareItems', items: customSelfCareItems });
+                        
+                        transaction.oncomplete = () => {
+                            renderSelfCareChecklist();
+                            showStatus('Self-care item updated!', 'success');
+                        };
+                    });
+                } catch (error) {
+                    console.error('Update self-care item error:', error);
+                    showStatus('Error updating item', 'error');
+                }
+            }
+        }
+
+        async function deleteCustomSelfCareItem(itemId) {
+            if (!confirm('Delete this self-care task?')) {
+                return;
+            }
+            
+            // Remove from customSelfCareItems array
+            customSelfCareItems = customSelfCareItems.filter(item => item.id !== itemId);
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'selfCareItems', items: customSelfCareItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderSelfCareChecklist();
+                        showStatus('Task deleted', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Delete self-care item error:', error);
+                showStatus('Error deleting task', 'error');
+            }
+        }
+
+        async function resetSelfCareItem(itemId) {
+            // Find the default item
+            const defaultItem = DEFAULT_SELF_CARE.find(item => item.id === itemId);
+            if (!defaultItem) return;
+            
+            // Remove any custom version of this item
+            customSelfCareItems = customSelfCareItems.filter(item => item.id !== itemId);
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'selfCareItems', items: customSelfCareItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderSelfCareChecklist();
+                        renderSelfCareEditList();
+                        showStatus('Item reset to default', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Reset self-care item error:', error);
+                showStatus('Error resetting item', 'error');
+            }
+        }
+
+        // ============================================================================
+        // PERSONAL HYGIENE TRACKING
+        // ============================================================================
+
+        async function loadHygieneItems() {
+            try {
+                await executeTransaction(['settings'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('hygieneItems');
+                    const hiddenRequest = store.get('hiddenHygieneItems');
+                    
+                    request.onsuccess = () => {
+                        const data = request.result;
+                        if (data && data.items && Array.isArray(data.items)) {
+                            customHygieneItems = data.items.filter(customItem => 
+                                !DEFAULT_HYGIENE.find(defaultItem => defaultItem.id === customItem.id)
+                            );
+                        } else {
+                            customHygieneItems = [];
+                        }
+                    };
+                    
+                    hiddenRequest.onsuccess = () => {
+                        const data = hiddenRequest.result;
+                        if (data && data.items && Array.isArray(data.items)) {
+                            hiddenHygieneItems = data.items;
+                        } else {
+                            hiddenHygieneItems = [];
+                        }
+                        renderHygieneChecklist();
+                    };
+                });
+            } catch (error) {
+                console.error('Load hygiene items error:', error);
+                customHygieneItems = [];
+                hiddenHygieneItems = [];
+                renderHygieneChecklist();
+            }
+        }
+
+        function renderHygieneChecklist() {
+            const container = document.getElementById('hygieneChecklist');
+            
+            const currentChecked = Array.from(document.querySelectorAll('#hygieneChecklist .selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            container.innerHTML = '';
+            
+            // Filter out hidden default items
+            const visibleDefaultItems = DEFAULT_HYGIENE.filter(item => 
+                !hiddenHygieneItems.includes(item.id)
+            );
+            const allItems = [...visibleDefaultItems, ...customHygieneItems];
+            
+            if (allItems.length === 0) {
+                container.innerHTML = '<p style="opacity: 0.6; font-style: italic;">No hygiene tasks yet. Add one below!</p>';
+                return;
+            }
+            
+            allItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'selfcare-item';
+                
+                const isChecked = currentChecked.includes(item.id);
+                
+                div.innerHTML = `
+                    <input type="checkbox" class="selfcare-checkbox" data-id="${item.id}" ${isChecked ? 'checked' : ''} onchange="saveEntry()">
+                    <span style="flex: 1;">${item.text}</span>
+                    <button class="delete-btn" onclick="deleteCustomHygieneItem('${item.id}')">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        async function addCustomHygieneItem() {
+            const textInput = document.getElementById('newHygieneText');
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter a hygiene task', 'error');
+                return;
+            }
+            
+            const allItems = [...DEFAULT_HYGIENE, ...customHygieneItems];
+            const exists = allItems.some(item => 
+                item.text.toLowerCase() === text.toLowerCase()
+            );
+            
+            if (exists) {
+                showStatus('This hygiene task already exists!', 'error');
+                return;
+            }
+            
+            const newItem = {
+                id: 'hygiene_custom_' + Date.now(),
+                text: text
+            };
+            
+            customHygieneItems.push(newItem);
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'hygieneItems', items: customHygieneItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderHygieneChecklist();
+                        textInput.value = '';
+                        showStatus('Hygiene task added!', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Add hygiene item error:', error);
+                showStatus('Error adding task', 'error');
+            }
+        }
+
+        async function deleteCustomHygieneItem(itemId) {
+            if (!confirm('Delete this hygiene task?')) {
+                return;
+            }
+            
+            // Check if it's a default item
+            const isDefaultItem = DEFAULT_HYGIENE.find(item => item.id === itemId);
+            
+            if (isDefaultItem) {
+                // Add to hidden list
+                if (!hiddenHygieneItems.includes(itemId)) {
+                    hiddenHygieneItems.push(itemId);
+                }
+            } else {
+                // Remove from custom items
+                customHygieneItems = customHygieneItems.filter(item => item.id !== itemId);
+            }
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'hygieneItems', items: customHygieneItems });
+                    store.put({ key: 'hiddenHygieneItems', items: hiddenHygieneItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderHygieneChecklist();
+                        showStatus('Task deleted', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Delete hygiene item error:', error);
+                showStatus('Error deleting task', 'error');
+            }
+        }
+
+        // ============================================================================
+        // HEALTH TRACKING
+        // ============================================================================
+
+        async function loadHealthItems() {
+            try {
+                await executeTransaction(['settings'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('healthItems');
+                    const hiddenRequest = store.get('hiddenHealthItems');
+                    
+                    request.onsuccess = () => {
+                        const data = request.result;
+                        if (data && data.items && Array.isArray(data.items)) {
+                            customHealthItems = data.items.filter(customItem => 
+                                !DEFAULT_HEALTH.find(defaultItem => defaultItem.id === customItem.id)
+                            );
+                        } else {
+                            customHealthItems = [];
+                        }
+                    };
+                    
+                    hiddenRequest.onsuccess = () => {
+                        const data = hiddenRequest.result;
+                        if (data && data.items && Array.isArray(data.items)) {
+                            hiddenHealthItems = data.items;
+                        } else {
+                            hiddenHealthItems = [];
+                        }
+                        renderHealthChecklist();
+                    };
+                });
+            } catch (error) {
+                console.error('Load health items error:', error);
+                customHealthItems = [];
+                hiddenHealthItems = [];
+                renderHealthChecklist();
+            }
+        }
+
+        function renderHealthChecklist() {
+            const container = document.getElementById('healthChecklist');
+            
+            const currentChecked = Array.from(document.querySelectorAll('#healthChecklist .selfcare-checkbox:checked'))
+                .map(cb => cb.dataset.id);
+            
+            container.innerHTML = '';
+            
+            // Filter out hidden default items
+            const visibleDefaultItems = DEFAULT_HEALTH.filter(item => 
+                !hiddenHealthItems.includes(item.id)
+            );
+            const allItems = [...visibleDefaultItems, ...customHealthItems];
+            
+            if (allItems.length === 0) {
+                container.innerHTML = '<p style="opacity: 0.6; font-style: italic;">No health items yet. Add one below!</p>';
+                return;
+            }
+            
+            allItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'selfcare-item';
+                
+                const isChecked = currentChecked.includes(item.id);
+                
+                div.innerHTML = `
+                    <input type="checkbox" class="selfcare-checkbox" data-id="${item.id}" ${isChecked ? 'checked' : ''} onchange="saveEntry()">
+                    <span style="flex: 1;">${item.text}</span>
+                    <button class="delete-btn" onclick="deleteCustomHealthItem('${item.id}')">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        async function addCustomHealthItem() {
+            const textInput = document.getElementById('newHealthText');
+            const text = textInput.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter a health item', 'error');
+                return;
+            }
+            
+            const allItems = [...DEFAULT_HEALTH, ...customHealthItems];
+            const exists = allItems.some(item => 
+                item.text.toLowerCase() === text.toLowerCase()
+            );
+            
+            if (exists) {
+                showStatus('This health item already exists!', 'error');
+                return;
+            }
+            
+            const newItem = {
+                id: 'health_custom_' + Date.now(),
+                text: text
+            };
+            
+            customHealthItems.push(newItem);
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'healthItems', items: customHealthItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderHealthChecklist();
+                        textInput.value = '';
+                        showStatus('Health item added!', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Add health item error:', error);
+                showStatus('Error adding item', 'error');
+            }
+        }
+
+        async function deleteCustomHealthItem(itemId) {
+            if (!confirm('Delete this health item?')) {
+                return;
+            }
+            
+            // Check if it's a default item
+            const isDefaultItem = DEFAULT_HEALTH.find(item => item.id === itemId);
+            
+            if (isDefaultItem) {
+                // Add to hidden list
+                if (!hiddenHealthItems.includes(itemId)) {
+                    hiddenHealthItems.push(itemId);
+                }
+            } else {
+                // Remove from custom items
+                customHealthItems = customHealthItems.filter(item => item.id !== itemId);
+            }
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'healthItems', items: customHealthItems });
+                    store.put({ key: 'hiddenHealthItems', items: hiddenHealthItems });
+                    
+                    transaction.oncomplete = () => {
+                        renderHealthChecklist();
+                        showStatus('Item deleted', 'success');
+                    };
+                });
+            } catch (error) {
+                console.error('Delete health item error:', error);
+                showStatus('Error deleting item', 'error');
+            }
+        }
+
+        // ============================================================================
+        // TASK MANAGEMENT
+        // ============================================================================
+
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const timeInput = document.getElementById('taskTime');
+            const prioritySelect = document.getElementById('taskPriority');
+            
+            const taskText = input.value.trim();
+            if (!taskText) {
+                showStatus('Please enter a task', 'error');
+                return;
+            }
+            
+            const task = {
+                text: taskText,
+                completed: false,
+                time: timeInput.value,
+                priority: prioritySelect.value
+            };
+            
+            addTaskToDOM(task, -1);
+            
+            input.value = '';
+            timeInput.value = '';
+            prioritySelect.value = '';
+            
+            saveEntry();
+            updateProgress();
+            showStatus('Task added!', 'success');
+        }
+
+        function addTaskToDOM(task, index) {
+            const container = document.getElementById('taskListContainer');
+            const div = document.createElement('div');
+            div.className = 'task-item' + (task.completed ? ' completed' : '');
+            div.dataset.priority = task.priority || '';
+            div.draggable = true;
+            
+            let priorityBadge = '';
+            if (task.priority === 'high') priorityBadge = '🔴';
+            else if (task.priority === 'medium') priorityBadge = '🟡';
+            else if (task.priority === 'low') priorityBadge = '🟢';
+            
+            div.innerHTML = `
+                <span class="drag-handle">⋮⋮</span>
+                <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onchange="this.parentElement.classList.toggle('completed', this.checked); saveEntry(); updateProgress();">
+                <div style="flex: 1;">
+                    <div class="task-text">${task.text}</div>
+                    ${task.time ? `<div class="task-time" style="font-size: 0.9em; opacity: 0.7;">🕐 ${task.time}</div>` : ''}
+                </div>
+                ${priorityBadge ? `<span style="font-size: 1.2em;">${priorityBadge}</span>` : ''}
+                <button class="delete-btn" onclick="this.parentElement.remove(); saveEntry(); updateProgress();">×</button>
+            `;
+            
+            // Add drag event listeners
+            setupTaskDragHandlers(div);
+            
+            container.appendChild(div);
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.task-checkbox');
+            const total = checkboxes.length;
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            const progressBar = document.getElementById('progressBar');
+            const progressContainer = progressBar.parentElement;
+            
+            progressBar.style.width = percentage + '%';
+            progressContainer.setAttribute('data-progress', percentage + '%');
+        }
+
+        // ============================================================================
+        // DRAG AND DROP FOR TASKS
+        // ============================================================================
+
+        let draggedTask = null;
+
+        function setupTaskDragHandlers(taskElement) {
+            taskElement.addEventListener('dragstart', handleDragStart);
+            taskElement.addEventListener('dragend', handleDragEnd);
+            taskElement.addEventListener('dragover', handleDragOver);
+            taskElement.addEventListener('drop', handleDrop);
+            taskElement.addEventListener('dragenter', handleDragEnter);
+            taskElement.addEventListener('dragleave', handleDragLeave);
+        }
+
+        function handleDragStart(e) {
+            draggedTask = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            
+            // Remove drag-over class from all tasks
+            document.querySelectorAll('.task-item').forEach(task => {
+                task.classList.remove('drag-over');
+            });
+            
+            draggedTask = null;
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (this !== draggedTask) {
+                this.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            
+            if (draggedTask !== this) {
+                const container = document.getElementById('taskListContainer');
+                const allTasks = Array.from(container.children);
+                const draggedIndex = allTasks.indexOf(draggedTask);
+                const targetIndex = allTasks.indexOf(this);
+                
+                // Reorder the tasks in the DOM
+                if (draggedIndex < targetIndex) {
+                    this.parentNode.insertBefore(draggedTask, this.nextSibling);
+                } else {
+                    this.parentNode.insertBefore(draggedTask, this);
+                }
+                
+                // Save the new order
+                saveEntry();
+                showStatus('Task order updated! 🎯', 'success');
+            }
+            
+            return false;
+        }
+
+        // ============================================================================
+        // NOTES MANAGEMENT
+        // ============================================================================
+
+        function addNote() {
+            const input = document.getElementById('noteInput');
+            const text = input.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter a note', 'error');
+                return;
+            }
+            
+            addNoteToDOM(text, -1, 'notesContainer', false);
+            input.value = '';
+            saveEntry();
+            showStatus('Note added!', 'success');
+        }
+
+        function addNoteToDOM(text, index, containerId, isPersistent) {
+            const container = document.getElementById(containerId);
+            const div = document.createElement('div');
+            div.className = 'sticky-note';
+            div.innerHTML = `
+                <span style="flex: 1;">${text}</span>
+                <button class="delete-btn" onclick="this.parentElement.remove(); ${isPersistent ? 'savePersistentNotes()' : 'saveEntry()'};">×</button>
+            `;
+            container.appendChild(div);
+        }
+
+        function clearAllNotes() {
+            if (confirm('Clear all notes for today?')) {
+                document.getElementById('notesContainer').innerHTML = '';
+                saveEntry();
+                showStatus('Notes cleared', 'success');
+            }
+        }
+
+        // ============================================================================
+        // PERSISTENT REMINDERS
+        // ============================================================================
+
+        async function loadPersistentNotes() {
+            try {
+                await executeTransaction(['settings'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('persistentNotes');
+                    
+                    request.onsuccess = () => {
+                        const data = request.result;
+                        const notes = data ? data.notes : [];
+                        const container = document.getElementById('persistentNotesContainer');
+                        container.innerHTML = '';
+                        notes.forEach((note, index) => {
+                            addNoteToDOM(note, index, 'persistentNotesContainer', true);
+                        });
+                    };
+                });
+            } catch (error) {
+                console.error('Load persistent notes error:', error);
+            }
+        }
+
+        async function addPersistentNote() {
+            const input = document.getElementById('persistentNoteInput');
+            const text = input.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter a reminder', 'error');
+                return;
+            }
+            
+            addNoteToDOM(text, -1, 'persistentNotesContainer', true);
+            input.value = '';
+            savePersistentNotes();
+            showStatus('Daily reminder added!', 'success');
+        }
+
+        async function savePersistentNotes() {
+            const notes = [];
+            document.querySelectorAll('#persistentNotesContainer .sticky-note').forEach(note => {
+                const text = note.querySelector('span');
+                if (text) notes.push(text.textContent);
+            });
+            
+            try {
+                await executeTransaction(['settings'], 'readwrite', (transaction) => {
+                    const store = transaction.objectStore('settings');
+                    store.put({ key: 'persistentNotes', notes: notes });
+                });
+            } catch (error) {
+                console.error('Save persistent notes error:', error);
+                showStatus('Error saving reminders', 'error');
+            }
+        }
+
+        async function clearAllPersistentNotes() {
+            if (confirm('⚠️ Clear ALL daily reminders? They appear on every day.')) {
+                document.getElementById('persistentNotesContainer').innerHTML = '';
+                savePersistentNotes();
+                showStatus('All reminders cleared', 'success');
+            }
+        }
+
+        // ============================================================================
+        // QUICK CAPTURE
+        // ============================================================================
+
+        function toggleQuickCapture() {
+            const panel = document.getElementById('quickCapturePanel');
+            panel.classList.toggle('show');
+        }
+
+        function saveQuickCapture() {
+            const input = document.getElementById('quickCaptureInput');
+            const text = input.value.trim();
+            
+            if (!text) {
+                showStatus('Please enter something to capture', 'error');
+                return;
+            }
+            
+            const brainDump = document.getElementById('brainDump');
+            const timestamp = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            brainDump.value += (brainDump.value ? '\n\n' : '') + `[${timestamp}] ${text}`;
+            
+            input.value = '';
+            toggleQuickCapture();
+            saveEntry();
+            showStatus('Quick thought saved!', 'success');
+        }
+
+        // ============================================================================
+        // FOCUS TIMER
+        // ============================================================================
+
+        function startTimer(minutes) {
+            timerSeconds = minutes * 60;
+            if (timerInterval) clearInterval(timerInterval);
+            timerRunning = true;
+            
+            // Show pause button, hide resume button
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+            document.getElementById('resumeBtn').style.display = 'none';
+            
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    document.getElementById('pauseBtn').style.display = 'inline-block';
+                    document.getElementById('resumeBtn').style.display = 'none';
+                    showStatus('⏰ Timer complete! Take a break!', 'success');
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('Timer Complete!', {
+                            body: 'Your focus session is done. Time for a break!',
+                            icon: '🎃'
+                        });
+                    }
+                }
+            }, 1000);
+            
+            showStatus(`Timer started: ${minutes} minutes`, 'success');
+        }
+
+        function startCustomTimer() {
+            const input = document.getElementById('customTimerInput');
+            const minutes = parseInt(input.value);
+            
+            if (!minutes || minutes < 1) {
+                showStatus('Please enter a valid number of minutes', 'error');
+                return;
+            }
+            
+            startTimer(minutes);
+            input.value = '';
+        }
+
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerRunning = false;
+                
+                // Hide pause button, show resume button
+                document.getElementById('pauseBtn').style.display = 'none';
+                document.getElementById('resumeBtn').style.display = 'inline-block';
+                
+                showStatus('Timer paused', 'success');
+            }
+        }
+        
+        function resumeTimer() {
+            if (timerRunning || timerSeconds <= 0) return;
+            
+            timerRunning = true;
+            
+            // Show pause button, hide resume button
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+            document.getElementById('resumeBtn').style.display = 'none';
+            
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    clearInterval(timerInterval);
+                    timerRunning = false;
+                    document.getElementById('pauseBtn').style.display = 'inline-block';
+                    document.getElementById('resumeBtn').style.display = 'none';
+                    showStatus('⏰ Timer complete! Take a break!', 'success');
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification('Timer Complete!', {
+                            body: 'Your focus session is done. Time for a break!',
+                            icon: '🎃'
+                        });
+                    }
+                }
+            }, 1000);
+            
+            showStatus('Timer resumed', 'success');
+        }
+
+        function resetTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = null;
+            timerRunning = false;
+            timerSeconds = 1500;
+            updateTimerDisplay();
+            
+            // Reset button visibility to initial state
+            document.getElementById('pauseBtn').style.display = 'inline-block';
+            document.getElementById('resumeBtn').style.display = 'none';
+            
+            showStatus('Timer reset', 'success');
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timerDisplay').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ============================================================================
+        // ENTRIES LIST & STREAK
+        // ============================================================================
+
+        async function updateEntriesList() {
+            try {
+                await executeTransaction(['entries'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('entries');
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => {
+                        const entries = request.result || [];
+                        entries.sort((a, b) => b.date.localeCompare(a.date));
+                        
+                        const container = document.getElementById('entriesList');
+                        container.innerHTML = '';
+                        
+                        entries.slice(0, 50).forEach(entry => {
+                            const div = document.createElement('div');
+                            div.className = 'entry-item';
+                            
+                            const date = new Date(entry.date + 'T12:00:00');
+                            const dateStr = date.toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric', 
+                                year: 'numeric' 
+                            });
+                            
+                            let preview = '';
+                            if (entry.mood) preview += `Mood: ${entry.mood} `;
+                            if (entry.energy) preview += `Energy: ${entry.energy}/5 `;
+                            if (entry.tasks && entry.tasks.length > 0) {
+                                const completed = entry.tasks.filter(t => t.completed).length;
+                                preview += `Tasks: ${completed}/${entry.tasks.length} `;
+                            }
+                            
+                            div.innerHTML = `
+                                <div style="font-weight: bold; margin-bottom: 5px;">${dateStr}</div>
+                                <div style="font-size: 0.9em; opacity: 0.8;">${preview || 'No data'}</div>
+                            `;
+                            
+                            div.onclick = () => jumpToDate(entry.date);
+                            container.appendChild(div);
+                        });
+                    };
+                });
+            } catch (error) {
+                console.error('Update entries list error:', error);
+            }
+        }
+
+        async function updateStreak() {
+            try {
+                await executeTransaction(['entries'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('entries');
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => {
+                        const entries = request.result || [];
+                        if (entries.length === 0) {
+                            document.getElementById('streakNumber').textContent = '0';
+                            return;
+                        }
+                        
+                        entries.sort((a, b) => b.date.localeCompare(a.date));
+                        
+                        let streak = 0;
+                        let checkDate = new Date();
+                        
+                        for (let entry of entries) {
+                            const entryDate = new Date(entry.date + 'T12:00:00');
+                            const daysDiff = Math.floor((checkDate - entryDate) / (1000 * 60 * 60 * 24));
+                            
+                            if (daysDiff === 0 || daysDiff === 1) {
+                                streak++;
+                                checkDate = entryDate;
+                            } else if (daysDiff > 1) {
+                                break;
+                            }
+                        }
+                        
+                        document.getElementById('streakNumber').textContent = streak;
+                    };
+                });
+            } catch (error) {
+                console.error('Update streak error:', error);
+            }
+        }
+
+        // ============================================================================
+        // STATISTICS
+        // ============================================================================
+
+        async function updateStats() {
+            try {
+                await executeTransaction(['entries'], 'readonly', (transaction) => {
+                    const store = transaction.objectStore('entries');
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => {
+                        const entries = request.result || [];
+                        
+                        // Total entries
+                        document.getElementById('totalEntries').textContent = entries.length;
+                        
+                        // Mood statistics
+                        const moodEntries = entries.filter(e => e.mood);
+                        if (moodEntries.length > 0) {
+                            const moodValues = {
+                                'amazing': 5,
+                                'great': 4,
+                                'good': 3,
+                                'okay': 2,
+                                'meh': 1,
+                                'struggling': 0,
+                                'rough': -1
+                            };
+                            
+                            const moodSum = moodEntries.reduce((sum, entry) => {
+                                return sum + (moodValues[entry.mood] || 0);
+                            }, 0);
+                            
+                            const avgMood = moodSum / moodEntries.length;
+                            document.getElementById('avgMood').textContent = avgMood.toFixed(1);
+                        }
+                        
+                        // Energy statistics
+                        const energyEntries = entries.filter(e => e.energy);
+                        if (energyEntries.length > 0) {
+                            const energySum = energyEntries.reduce((sum, entry) => {
+                                return sum + parseInt(entry.energy);
+                            }, 0);
+                            
+                            const avgEnergy = energySum / energyEntries.length;
+                            document.getElementById('avgEnergy').textContent = avgEnergy.toFixed(1);
+                        }
+                        
+                        // Tasks completed
+                        const totalTasks = entries.reduce((sum, entry) => {
+                            return sum + (entry.tasks ? entry.tasks.filter(t => t.completed).length : 0);
+                        }, 0);
+                        
+                        document.getElementById('tasksCompleted').textContent = totalTasks;
+                    };
+                });
+                
+                showStatus('Stats updated! 🖌', 'success');
+            } catch (error) {
+                console.error('Update stats error:', error);
+                showStatus('Error updating stats', 'error');
+            }
+        }
+
+        // ============================================================================
+        // CELEBRATION & "DONE ENOUGH" FEATURE
+        // ============================================================================
+
+        function celebrateSmallWin(event) {
+            console.log('🎉 celebrateSmallWin called!', event);
+            
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            // Prevent multiple celebrations at once
+            if (document.querySelector('.celebration')) {
+                console.log('⚠️ Celebration already active, skipping...');
+                return;
+            }
+            
+            console.log('✅ Creating celebration overlay...');
+            
+            // Create celebration overlay
+            const celebration = document.createElement('div');
+            celebration.className = 'celebration';
+            celebration.style.cursor = 'pointer';
+            
+            // Reduced confetti count for better performance
+            const confettiShapes = ['●', '■', '▲', '★', '♥', '✿'];
+            const confettiCount = 40; // Reduced from 60
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.textContent = confettiShapes[Math.floor(Math.random() * confettiShapes.length)];
+                confetti.style.color = [
+                    'var(--accent)',
+                    'var(--button)',
+                    'var(--progress-fill)',
+                    '#FFD700',
+                    '#FF69B4',
+                    '#FF6B9D',
+                    '#C0C0FF'
+                ][Math.floor(Math.random() * 7)];
+                confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+                celebration.appendChild(confetti);
+            }
+            
+            // Create message
+            const messages = [
+                "You're amazing! 🌟",
+                "That's enough for today! 💖",
+                "You did great! ✨",
+                "Be proud of yourself! 🎉",
+                "Rest is productive too! 🌸",
+                "You're doing your best! 💕",
+                "You're wonderful! 🦄",
+                "Take a breather! 🌈"
+            ];
+            
+            const message = document.createElement('div');
+            message.className = 'celebration-message';
+            message.innerHTML = `
+                <h3>${messages[Math.floor(Math.random() * messages.length)]}</h3>
+                <p>Remember: Progress isn't always visible, but it's happening. You're worthy of rest and kindness. 💫</p>
+            `;
+            
+            // Add to DOM
+            document.body.appendChild(celebration);
+            document.body.appendChild(message);
+            console.log('✅ Celebration elements added to DOM!');
+            
+            // Click anywhere to dismiss with improved handling
+            const dismissCelebration = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                if (celebration.parentElement) {
+                    celebration.remove();
+                }
+                if (message.parentElement) {
+                    message.remove();
+                }
+            };
+            
+            // Use setTimeout to ensure elements are fully rendered before adding listeners
+            setTimeout(() => {
+                celebration.addEventListener('click', dismissCelebration, { once: true });
+                message.addEventListener('click', dismissCelebration, { once: true });
+            }, 100);
+            
+            // Auto-remove after 6 seconds with cleanup
+            setTimeout(() => {
+                dismissCelebration({ preventDefault: () => {}, stopPropagation: () => {} });
+            }, 6000);
+        }
+
+        // ============================================================================
+        // BACKUP & RESTORE
+        // ============================================================================
+
+        function validateImportData(data) {
+            const errors = [];
+            const warnings = [];
+            
+            if (!data || typeof data !== 'object') {
+                errors.push('Invalid data format');
+                return { valid: false, errors, warnings };
+            }
+            
+            if (!Array.isArray(data.entries)) {
+                errors.push('Missing or invalid entries array');
+            }
+            
+            if (data.persistentNotes && !Array.isArray(data.persistentNotes)) {
+                warnings.push('Persistent notes format invalid - will be skipped');
+            }
+            
+            if (data.selfCareItems && !Array.isArray(data.selfCareItems)) {
+                warnings.push('Self-care items format invalid - will be skipped');
+            }
+            
+            return {
+                valid: errors.length === 0,
+                errors,
+                warnings
+            };
+        }
+
+        async function exportData() {
+            try {
+                const entries = await new Promise((resolve, reject) => {
+                    const transaction = db.transaction(['entries'], 'readonly');
+                    const store = transaction.objectStore('entries');
+                    const request = store.getAll();
+                    
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = () => reject(request.error);
+                });
+
+                const persistentNotes = await new Promise((resolve, reject) => {
+                    const transaction = db.transaction(['settings'], 'readonly');
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('persistentNotes');
+                    
+                    request.onsuccess = () => resolve(request.result ? request.result.notes : []);
+                    request.onerror = () => reject(request.error);
+                });
+
+                const selfCareItems = await new Promise((resolve, reject) => {
+                    const transaction = db.transaction(['settings'], 'readonly');
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('selfCareItems');
+                    
+                    request.onsuccess = () => resolve(request.result ? request.result.items : []);
+                    request.onerror = () => reject(request.error);
+                });
+
+                const hygieneItems = await new Promise((resolve, reject) => {
+                    const transaction = db.transaction(['settings'], 'readonly');
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('hygieneItems');
+                    
+                    request.onsuccess = () => resolve(request.result ? request.result.items : []);
+                    request.onerror = () => reject(request.error);
+                });
+
+                const healthItems = await new Promise((resolve, reject) => {
+                    const transaction = db.transaction(['settings'], 'readonly');
+                    const store = transaction.objectStore('settings');
+                    const request = store.get('healthItems');
+                    
+                    request.onsuccess = () => resolve(request.result ? request.result.items : []);
+                    request.onerror = () => reject(request.error);
+                });
+
+                const data = {
+                    entries: entries,
+                    persistentNotes: persistentNotes,
+                    selfCareItems: selfCareItems,
+                    hygieneItems: hygieneItems,
+                    healthItems: healthItems,
+                    theme: localStorage.getItem('theme') || 'pastel',
+                    emojisEnabled: localStorage.getItem('emojisEnabled') !== 'false',
+                    brightnessLevel: localStorage.getItem('brightnessLevel') || '3',
+                    exportDate: new Date().toISOString(),
+                    metadata: {
+                        version: '3.2 - Added Hygiene and Health Tracking'
+                    }
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `diary-backup-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                showStatus(`Data exported successfully! (${entries.length} entries)`, 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                showStatus('Error exporting data', 'error');
+            }
+        }
+
+        async function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    const validation = validateImportData(data);
+                    if (!validation.valid) {
+                        showStatus('Error: Invalid backup file - ' + validation.errors.join(', '), 'error');
+                        return;
+                    }
+
+                    if (validation.warnings.length > 0) {
+                        console.warn('Import warnings:', validation.warnings);
+                    }
+
+                    const confirmMsg = `Import ${data.entries.length} entries? This will merge with existing data.`;
+                    if (!confirm(confirmMsg)) {
+                        event.target.value = '';
+                        return;
+                    }
+
+                    await executeTransaction(['entries', 'settings'], 'readwrite', (transaction) => {
+                        const entriesStore = transaction.objectStore('entries');
+                        const settingsStore = transaction.objectStore('settings');
+
+                        let importedCount = 0;
+                        data.entries.forEach(entry => {
+                            if (validateEntry(entry)) {
+                                entriesStore.put(entry);
+                                importedCount++;
+                            }
+                        });
+
+                        if (data.persistentNotes && Array.isArray(data.persistentNotes)) {
+                            settingsStore.put({ key: 'persistentNotes', notes: data.persistentNotes });
+                        }
+
+                        if (data.selfCareItems && Array.isArray(data.selfCareItems)) {
+                            settingsStore.put({ key: 'selfCareItems', items: data.selfCareItems });
+                        }
+
+                        if (data.hygieneItems && Array.isArray(data.hygieneItems)) {
+                            settingsStore.put({ key: 'hygieneItems', items: data.hygieneItems });
+                        }
+
+                        if (data.healthItems && Array.isArray(data.healthItems)) {
+                            settingsStore.put({ key: 'healthItems', items: data.healthItems });
+                        }
+
+                        transaction.oncomplete = () => {
+                            if (data.theme) {
+                                localStorage.setItem('theme', data.theme);
+                                setTheme(data.theme);
+                            }
+                            if (data.emojisEnabled !== undefined) {
+                                localStorage.setItem('emojisEnabled', data.emojisEnabled);
+                                setEmojisEnabled(data.emojisEnabled === 'true');
+                            }
+                            if (data.brightnessLevel) {
+                                localStorage.setItem('brightnessLevel', data.brightnessLevel);
+                                setBrightness(data.brightnessLevel);
+                            }
+
+                            showStatus(`Successfully imported ${importedCount} entries!`, 'success');
+                            loadPersistentNotes();
+                            loadSelfCareItems();
+                            loadHygieneItems();
+                            loadHealthItems();
+                            loadEntry(getDateString(currentDate));
+                            updateEntriesList();
+                            updateStreak();
+                            updateStats();
+                        };
+                    });
+                } catch (error) {
+                    console.error('Import error:', error);
+                    showStatus('Error: Invalid backup file format', 'error');
+                }
+            };
+            
+            reader.onerror = () => {
+                showStatus('Error reading file', 'error');
+            };
+
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        async function clearAllData() {
+            if (!confirm('⚠️ WARNING: This will delete ALL diary entries AND persistent reminders permanently. This cannot be undone. Are you sure?')) {
+                return;
+            }
+
+            if (!confirm('Really delete everything? Please export a backup first if you want to save your data!')) {
+                return;
+            }
+
+            try {
+                await executeTransaction(['entries', 'settings'], 'readwrite', (transaction) => {
+                    const entriesStore = transaction.objectStore('entries');
+                    const settingsStore = transaction.objectStore('settings');
+                    
+                    entriesStore.clear();
+                    settingsStore.clear();
+
+                    transaction.oncomplete = () => {
+                        showStatus('All data cleared', 'success');
+                        loadPersistentNotes();
+                        loadEntry(getDateString(currentDate));
+                        updateEntriesList();
+                        updateStreak();
+                        updateStats();
+                    };
+                });
+            } catch (error) {
+                console.error('Clear data error:', error);
+                showStatus('Error clearing data', 'error');
+            }
+        }
+
+        // ============================================================================
+        // THEME MANAGEMENT
+        // ============================================================================
+
+        function setTheme(theme) {
+            document.body.className = theme === 'pastel' ? '' : theme;
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.theme === theme);
+            });
+        }
+
+        function setEmojisEnabled(enabled) {
+            const toggle = document.getElementById('emojiToggle');
+            if (enabled) {
+                toggle.classList.add('active');
+                toggle.textContent = '🧡';
+                document.body.classList.remove('emojis-hidden');
+            } else {
+                toggle.classList.remove('active');
+                toggle.textContent = '🎃';
+                document.body.classList.add('emojis-hidden');
+            }
+        }
+
+        function toggleEmojis(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            const toggle = document.getElementById('emojiToggle');
+            const enabled = !toggle.classList.contains('active');
+            setEmojisEnabled(enabled);
+            localStorage.setItem('emojisEnabled', enabled);
+            showStatus(enabled ? 'Floating emojis enabled ✨' : 'Floating emojis hidden 🎃', 'success');
+        }
+
+        document.querySelectorAll('.theme-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.dataset.theme;
+                setTheme(theme);
+                localStorage.setItem('theme', theme);
+                showStatus(`Theme changed to ${theme}`, 'success');
+            });
+        });
+
+        // ============================================================================
+        // BRIGHTNESS CONTROL
+        // ============================================================================
+        
+        function toggleBrightnessPanel(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            const panel = document.getElementById('brightnessPanel');
+            const toggle = document.getElementById('brightnessToggle');
+            
+            panel.classList.toggle('show');
+            toggle.classList.toggle('active', panel.classList.contains('show'));
+        }
+        
+        function initializeBrightnessControl() {
+            const slider = document.getElementById('brightnessSlider');
+            const savedBrightness = localStorage.getItem('brightnessLevel') || '3';
+            slider.value = savedBrightness;
+            setBrightness(savedBrightness);
+            
+            slider.addEventListener('input', function() {
+                setBrightness(this.value);
+                localStorage.setItem('brightnessLevel', this.value);
+            });
+            
+            // Close brightness panel when clicking outside
+            document.addEventListener('click', function(event) {
+                const panel = document.getElementById('brightnessPanel');
+                const toggle = document.getElementById('brightnessToggle');
+                
+                if (panel.classList.contains('show') && 
+                    !panel.contains(event.target) && 
+                    !toggle.contains(event.target)) {
+                    panel.classList.remove('show');
+                    toggle.classList.remove('active');
+                }
+            });
+        }
+        
+        function setBrightness(level) {
+            document.body.classList.remove('brightness-low', 'brightness-medium', 'brightness-high');
+            
+            switch(level) {
+                case '1':
+                    document.body.classList.add('brightness-low');
+                    break;
+                case '2':
+                    document.body.classList.add('brightness-medium');
+                    break;
+                case '3':
+                    document.body.classList.add('brightness-high');
+                    break;
+                default:
+                    document.body.classList.add('brightness-high');
+            }
+        }
+
+        // ============================================================================
+        // FLOATING EMOJIS
+        // ============================================================================
+
+        function createFloatingEmojis() {
+            const container = document.getElementById('kawaiiContainer');
+            for (let i = 0; i < 15; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'kawaii-float';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                emoji.style.left = Math.random() * 100 + '%';
+                emoji.style.top = Math.random() * 100 + '%';
+                emoji.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(emoji);
+            }
+        }
+
+        // ============================================================================
+        // APPLICATION INITIALIZATION
+        // ============================================================================
+
+        async function initialize() {
+            try {
+                await initDB();
+                console.log('Database initialized successfully');
+                
+                const theme = localStorage.getItem('theme') || 'pastel';
+                setTheme(theme);
+
+                const emojisEnabled = localStorage.getItem('emojisEnabled') !== 'false';
+                setEmojisEnabled(emojisEnabled);
+                
+                // Initialize brightness control
+                initializeBrightnessControl();
+
+                createFloatingEmojis();
+                updateDateDisplay();
+                
+                // Initialize "Done Enough" button with event listener (backup to inline onclick)
+                const doneEnoughBtn = document.querySelector('.done-enough-btn');
+                if (doneEnoughBtn) {
+                    console.log('✅ Done Enough button found, adding event listener');
+                    doneEnoughBtn.addEventListener('click', celebrateSmallWin);
+                } else {
+                    console.warn('⚠️ Done Enough button not found in DOM');
+                }
+                
+                await loadPersistentNotes();
+                await loadSelfCareItems();
+                await loadHygieneItems();
+                await loadHealthItems();
+                await loadEntry(getDateString(currentDate));
+                await updateEntriesList();
+                await updateStreak();
+                await updateStats();
+
+                showStatus('Diary loaded successfully! 🧡', 'success');
+                console.log('Application initialized successfully');
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showStatus('Error initializing diary. Please check browser permissions and refresh.', 'error');
+            }
+        }
+
+        // ============================================================================
+        // START APPLICATION
+        // ============================================================================
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && db) {
+                loadEntry(getDateString(currentDate));
+                updateStreak();
+            }
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            if (db) {
+                console.log('Application closing...');
+            }
+        });
+
+    </script>
+</body>
+</html>
