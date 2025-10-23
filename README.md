@@ -168,4 +168,6 @@ Some days you'll use every feature. Some days you'll just click "I did enough to
 <img width="769" height="793" alt="Screenshot 2025-10-23 at 2 15 25 PM" src="https://github.com/user-attachments/assets/ce1ec2bc-adfe-49c6-8bcf-db9aa2142109" />
 <img width="770" height="794" alt="Screenshot 2025-10-23 at 2 15 46 PM" src="https://github.com/user-attachments/assets/a81fd577-cc51-4a7d-8384-e6e3ad9c31dd" />
 <img width="761" height="803" alt="Screenshot 2025-10-23 at 2 16 17 PM" src="https://github.com/user-attachments/assets/d283e784-bd7b-4579-95f7-cd1dac2aa6d0" />
-
+<img width="1221" height="885" alt="Screenshot 2025-10-23 at 2 36 13 PM" src="https://github.com/user-attachments/assets/504dad1f-3e3e-4113-8b1c-2477ea359f2c" />
+<img width="1225" height="882" alt="Screenshot 2025-10-23 at 2 36 05 PM" src="https://github.com/user-attachments/assets/09ce4798-a09d-46a6-8a6e-d2d1235b9a7f" />
+<img width="1225" height="807" alt="Screenshot 2025-10-23 at 2 32 38 PM" src="https://github.com/user-attachments/assets/5ad1cdb3-b7dc-4fb0-86d6-8418f62beef5" />
