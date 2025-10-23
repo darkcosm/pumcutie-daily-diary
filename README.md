@@ -120,7 +120,7 @@ This is an intentional design choice:
 
 ### Tech Stack
 - **Vanilla HTML/CSS/JavaScript** - no frameworks, no build process
-- **IndexedDB** for local data storage with fallbacks
+- **IndexedDB** for local data storage with fallbacks (with JSON export/import)
 - **CSS Custom Properties** for theme system
 - **Single-file architecture** for maximum accessibility
 
